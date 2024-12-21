@@ -8,7 +8,7 @@ public class StoreRunner {
     public static void main(String[] args) {
 
         StartMenu.startMenu();
-        System.out.println("hello world");
+
 
 
     }
