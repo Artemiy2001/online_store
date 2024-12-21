@@ -1,4 +1,6 @@
-package com.artem.training.store.utils;
+package com.artem.training.store.utils.db_utils;
+
+import com.artem.training.store.utils.conect_utils.TakeConnection;
 
 import java.sql.*;
 import java.util.Scanner;
@@ -14,7 +16,7 @@ public class AddProduct {
         int priceProduct = scanner.nextInt();
 
         String sql = """
-                insert into store_schema.product(name, cost) (
+                insert into product(name, cost) (
                     values (?, ?)
                 )
                 """;
