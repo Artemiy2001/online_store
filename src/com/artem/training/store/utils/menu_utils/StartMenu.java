@@ -45,9 +45,18 @@ public final class StartMenu {
         System.out.println("2. Регистрация");
         System.out.print("Выберите варинат входа: ");
 
-        if (scanner.nextInt() == 2){
+
+        if (scanner.nextInt() == 1){
+            BuyerLogin.buyerLog();
+        } else if (scanner.nextInt() == 2) {
             BuyerRegistration.buyerRegistration();
+        }else {
+            System.out.println();
+            System.out.println("Такого варианте нет");
+            System.out.println();
+            entryAsBuyer();
         }
+
 
         System.out.println();
 
