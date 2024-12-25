@@ -45,10 +45,10 @@ public final class StartMenu {
         System.out.println("2. Регистрация");
         System.out.print("Выберите варинат входа: ");
 
-
-        if (scanner.nextInt() == 1){
+        int entryOption = scanner.nextInt();
+        if (entryOption == 1){
             BuyerLogin.buyerLog();
-        } else if (scanner.nextInt() == 2) {
+        } else if (entryOption == 2) {
             BuyerRegistration.buyerRegistration();
         }else {
             System.out.println();

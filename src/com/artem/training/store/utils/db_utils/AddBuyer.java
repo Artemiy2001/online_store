@@ -1,6 +1,8 @@
 package com.artem.training.store.utils.db_utils;
 
 
+import com.artem.training.store.dao.BuyerDao;
+import com.artem.training.store.entity.Buyer;
 import com.artem.training.store.utils.menu_utils.StartMenu;
 import com.artem.training.store.utils.conect_utils.TakeConnection;
 
@@ -15,21 +17,16 @@ public final class AddBuyer {
 
     public static void addToDbBuyer(String buyerName, String buyerAddress, String password) throws SQLException {
 
-        String sql = """
-                insert into buyer (user_name, address, password)(
-                    values (?, ?, ?)
-                )
-                """;
+        BuyerDao buyerDao = BuyerDao.getInstance();
 
-        try (Connection connection = TakeConnection.connection;
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, buyerName);
-            preparedStatement.setString(2, buyerAddress);
-            preparedStatement.setString(3, password);
+        Buyer buyer = new Buyer();
+        buyer.setName(buyerName);
+        buyer.setAddress(buyerAddress);
+        buyer.setPassword(password);
 
-            preparedStatement.executeUpdate();
+        buyerDao.saveBuyer(buyer);
 
-        }
+
 
     }
 }
