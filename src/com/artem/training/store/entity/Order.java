@@ -2,24 +2,24 @@ package com.artem.training.store.entity;
 
 public class Order {
 
-    private int orderId;
+    private int id;
     private int buyerId;
     private int productId;
     private int quantity;
 
-    public Order(int orderId, int buyerId, int productId, int quantity) {
-        this.orderId = orderId;
+    public Order(int id, int buyerId, int productId, int quantity) {
+        this.id = id;
         this.buyerId = buyerId;
         this.productId = productId;
         this.quantity = quantity;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public int getId() {
+        return id;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getBuyerId() {
@@ -49,10 +49,10 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "orderId=" + orderId +
-                ", buyerId=" + buyerId +
-                ", productId=" + productId +
-                ", quantity=" + quantity +
-                '}';
+               "id=" + id +
+               ", buyerId=" + buyerId +
+               ", productId=" + productId +
+               ", quantity=" + quantity +
+               '}';
     }
 }

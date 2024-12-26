@@ -133,7 +133,7 @@ public class BuyerDao {
 
     public Buyer saveBuyer(Buyer buyer) {
 
-        try (Connection connection = TakeConnection.connection;
+        try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
 
             preparedStatement.setString(1, buyer.getName());
