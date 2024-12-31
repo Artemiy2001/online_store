@@ -1,40 +1,31 @@
 package com.artem.training.store.utils.db_utils;
 
+import com.artem.training.store.dao.ProductDao;
+import com.artem.training.store.entity.Product;
 import com.artem.training.store.utils.conect_utils.TakeConnection;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Scanner;
 
 public class AddProduct {
 
-    public static void addMenu(){
+    public static void productToStore(){
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Название продукта: ");
         String nameProduct = scanner.nextLine();
         System.out.print("Цена продукта: ");
-        int priceProduct = scanner.nextInt();
+        BigDecimal priceProduct = scanner.nextBigDecimal();
 
-        String sql = """
-                insert into product(name, cost) (
-                    values (?, ?)
-                )
-                """;
+        ProductDao productDao = ProductDao.getInstance();
 
-        try {
-            Connection connection = TakeConnection.connection;
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, nameProduct);
-            preparedStatement.setInt(2, priceProduct);
+        Product product = new Product();
+        product.setName(nameProduct);
+        product.setPrice(priceProduct);
 
-
-
-            int result = preparedStatement.executeUpdate();
-            System.out.println(result);
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        productDao.save(product);
 
 
 

@@ -1,6 +1,7 @@
 package com.artem.training.store.utils.menu_utils;
 
 import com.artem.training.store.utils.db_utils.AddBuyer;
+import com.artem.training.store.utils.db_utils.AddProduct;
 
 import java.util.Scanner;
 
@@ -23,11 +24,11 @@ public final class StartMenu {
         System.out.print("Выберите варинат входа: ");
 
 
-
-        if (scanner.nextInt() == 1){
+        int entryOption = scanner.nextInt();
+        if (entryOption == 1){
             entryAsBuyer();
-        }else if (scanner.nextInt() == 2){
-
+        }else if (entryOption == 2){
+            entryAsManager();
 
         }else {
             System.out.println("Такого варианта нет");
@@ -60,6 +61,16 @@ public final class StartMenu {
 
         System.out.println();
 
+    }
+
+    private static void entryAsManager(){
+        System.out.println("1. Добавить продукт");
+        System.out.println("2. Подтвердить заказ");
+        System.out.print("Выберите действие:");
+        int entryOption = scanner.nextInt();
+        if (entryOption == 1){
+            AddProduct.productToStore();
+        }
     }
 
 
