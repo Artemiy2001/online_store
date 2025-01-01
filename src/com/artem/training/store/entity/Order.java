@@ -14,6 +14,10 @@ public class Order {
         this.quantity = quantity;
     }
 
+    public Order() {
+
+    }
+
     public int getId() {
         return id;
     }

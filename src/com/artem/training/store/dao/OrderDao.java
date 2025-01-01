@@ -23,7 +23,7 @@ public class OrderDao {
 
     private static final String SAVE_SQL = """
             INSERT INTO orders(id_product, id_buyer, num_products)
-            VALUES (?, ?)
+            VALUES (?, ?, ?)
             
             """;
 

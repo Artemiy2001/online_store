@@ -1,11 +1,12 @@
 package com.artem.training.store.dao;
 
-import com.artem.training.store.entity.Buyer;
 import com.artem.training.store.entity.Product;
 import com.artem.training.store.utils.conect_utils.ConnectionManager;
 import com.artem.training.store.utils.conect_utils.TakeConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ProductDao {
@@ -15,6 +16,17 @@ public class ProductDao {
     private ProductDao() {
 
     }
+
+    private static final String GET_COUNT_PRODUCT_SQL = """
+            SELECT COUNT(*)
+            FROM product
+            """;
+
+    private static final String GET_ALL_PRODUCTS_SQL = """
+            SELECT id, name, cost
+            FROM product
+            
+            """;
 
     private static final String DELETE_SQL = """
             DELETE FROM product
@@ -48,6 +60,54 @@ public class ProductDao {
             FROM product
             WHERE name = ?
             """;
+
+    public int getCountProduct() {
+
+        try (Connection connection = ConnectionManager.open();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_COUNT_PRODUCT_SQL)) {
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }else {
+                return 0;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Product> getAllProducts(int limit, int offset) {
+
+        String sql = GET_ALL_PRODUCTS_SQL + """
+                LIMIT ?
+                OFFSET ?
+                """;
+
+        try (Connection connection = ConnectionManager.open();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            List<Product> products = new ArrayList<>();
+
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                products.add(new Product(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getBigDecimal("cost")
+                ));
+            }
+
+            return products;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 
     public Optional<Product> findByName(String name) {

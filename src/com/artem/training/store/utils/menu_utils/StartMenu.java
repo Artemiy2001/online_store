@@ -1,8 +1,10 @@
 package com.artem.training.store.utils.menu_utils;
 
+import com.artem.training.store.entity.Buyer;
 import com.artem.training.store.utils.db_utils.AddBuyer;
 import com.artem.training.store.utils.db_utils.AddProduct;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public final class StartMenu {
@@ -48,7 +50,11 @@ public final class StartMenu {
 
         int entryOption = scanner.nextInt();
         if (entryOption == 1){
-            BuyerLogin.buyerLog();
+            Optional<Buyer> mayBeBuyer = BuyerLogin.buyerLog();
+            if (mayBeBuyer.isPresent()) {
+                buyerMenu(mayBeBuyer.get());
+            }
+
         } else if (entryOption == 2) {
             BuyerRegistration.buyerRegistration();
         }else {
@@ -70,6 +76,26 @@ public final class StartMenu {
         int entryOption = scanner.nextInt();
         if (entryOption == 1){
             AddProduct.productToStore();
+            entryAsManager();
+        }
+    }
+
+    private static void buyerMenu(Buyer buyer){
+        System.out.println("1. Мои покупки");
+        System.out.println("2. Заказы в обработке");
+        System.out.println("3. Сделать заказ");
+
+        int entryOption = scanner.nextInt();
+
+        if (entryOption == 1){
+            System.out.println("В разработке");
+        }else if (entryOption == 2){
+            System.out.println("В разработке");
+        }else if (entryOption == 3){
+            BuyerOrder.makeOrder(buyer);
+        }else {
+            System.out.println("Такого варианта нет");
+            buyerMenu(buyer);
         }
     }
 
