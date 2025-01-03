@@ -111,7 +111,7 @@ public class ProductDao {
 
 
     public Optional<Product> findByName(String name) {
-        try (Connection connection = TakeConnection.connection;
+        try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_NAME_SQL)) {
 
             preparedStatement.setString(1, name);
@@ -136,7 +136,7 @@ public class ProductDao {
 
 
     public Optional<Product> findById(int id) {
-        try (Connection connection = TakeConnection.connection;
+        try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
 
             preparedStatement.setInt(1, id);
@@ -162,7 +162,7 @@ public class ProductDao {
 
     public void update(Product product) {
 
-        try (Connection connection = TakeConnection.connection;
+        try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
             preparedStatement.setString(1, product.getName());
             preparedStatement.setBigDecimal(2, product.getPrice());
@@ -178,7 +178,7 @@ public class ProductDao {
 
     public boolean delete(int id) {
 
-        try (Connection connection = TakeConnection.connection;
+        try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)) {
 
             preparedStatement.setInt(1, id);

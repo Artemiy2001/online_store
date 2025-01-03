@@ -21,6 +21,7 @@ public final class StartMenu {
         }
         countStart++;
 
+        System.out.println();
         System.out.println("1. Войти как покупатель");
         System.out.println("2. Войти как менеджер");
         System.out.print("Выберите варинат входа: ");
@@ -44,8 +45,10 @@ public final class StartMenu {
     }
 
     private static void entryAsBuyer() {
+        System.out.println();
         System.out.println("1. Вход");
         System.out.println("2. Регистрация");
+        System.out.println("3. Назад");
         System.out.print("Выберите варинат входа: ");
 
         int entryOption = scanner.nextInt();
@@ -57,7 +60,10 @@ public final class StartMenu {
 
         } else if (entryOption == 2) {
             BuyerRegistration.buyerRegistration();
-        }else {
+            entryAsBuyer();
+        } else if (entryOption == 3) {
+            startMenu();
+        } else {
             System.out.println();
             System.out.println("Такого варианте нет");
             System.out.println();
@@ -65,14 +71,17 @@ public final class StartMenu {
         }
 
 
+
         System.out.println();
 
     }
 
     private static void entryAsManager(){
+        System.out.println();
         System.out.println("1. Добавить продукт");
         System.out.println("2. Подтвердить заказ");
-        System.out.print("Выберите действие:");
+        System.out.println("3. Назад");
+        System.out.print("Выберите действие: ");
         int entryOption = scanner.nextInt();
         if (entryOption == 1){
             AddProduct.productToStore();
@@ -81,9 +90,12 @@ public final class StartMenu {
     }
 
     private static void buyerMenu(Buyer buyer){
+        System.out.println();
         System.out.println("1. Мои покупки");
         System.out.println("2. Заказы в обработке");
         System.out.println("3. Сделать заказ");
+        System.out.println("4. Назад");
+        System.out.print("Веберите действие: ");
 
         int entryOption = scanner.nextInt();
 
@@ -93,6 +105,8 @@ public final class StartMenu {
             System.out.println("В разработке");
         }else if (entryOption == 3){
             BuyerOrder.makeOrder(buyer);
+        }else if (entryOption == 4){
+            entryAsBuyer();
         }else {
             System.out.println("Такого варианта нет");
             buyerMenu(buyer);

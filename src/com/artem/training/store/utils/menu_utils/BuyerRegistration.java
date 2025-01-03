@@ -17,6 +17,7 @@ public class BuyerRegistration {
 
 
         while (true){
+            System.out.println();
             System.out.print("Введите ваш логин: ");
             buyerName = sc.nextLine();
 
@@ -45,6 +46,7 @@ public class BuyerRegistration {
         }
 
         System.out.println("Покупатель зарегистрирован");
+
     }
 
 

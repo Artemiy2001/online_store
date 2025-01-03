@@ -50,7 +50,7 @@ public class OrderDao {
 
 
     public Optional<Order> findById(int id) {
-        try (Connection connection = TakeConnection.connection;
+        try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
 
             preparedStatement.setInt(1, id);
@@ -76,7 +76,7 @@ public class OrderDao {
 
     public void update(Order order) {
 
-        try (Connection connection = TakeConnection.connection;
+        try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
             preparedStatement.setInt(1, order.getProductId());
             preparedStatement.setInt(2, order.getBuyerId());
@@ -93,7 +93,7 @@ public class OrderDao {
 
     public boolean delete(int id) {
 
-        try (Connection connection = TakeConnection.connection;
+        try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)) {
 
             preparedStatement.setInt(1, id);

@@ -14,10 +14,13 @@ public class AddProduct {
 
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println();
         System.out.print("Название продукта: ");
         String nameProduct = scanner.nextLine();
         System.out.print("Цена продукта: ");
-        BigDecimal priceProduct = scanner.nextBigDecimal();
+        double priceProduct = scanner.nextDouble();
+
+
 
         ProductDao productDao = ProductDao.getInstance();
 

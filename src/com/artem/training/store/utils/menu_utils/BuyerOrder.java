@@ -50,6 +50,7 @@ public class BuyerOrder {
     private static void displayListProduct(ProductDao productDao, int limit, int offset) {
         List<Product> allProducts = productDao.getAllProducts(limit, offset);
 
+        System.out.println();
         for (int i = 0; i < allProducts.size(); i++) {
             System.out.println((i + 1) + ") " +
                                allProducts.get(i).getName() + " - " +

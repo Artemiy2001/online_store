@@ -15,6 +15,7 @@ public class BuyerLogin {
 
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println();
         System.out.print("Введите ваш логин: ");
         user_name = scanner.nextLine();
 
