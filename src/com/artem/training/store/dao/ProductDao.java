@@ -49,7 +49,7 @@ public class ProductDao {
             """;
 
     private static final String FIND_BY_ID_SQL = """
-            SELECT name, cost
+            SELECT id, name, cost
             FROM product
             WHERE id = ?
             """;

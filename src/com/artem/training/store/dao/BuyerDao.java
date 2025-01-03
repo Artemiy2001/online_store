@@ -6,6 +6,8 @@ import com.artem.training.store.utils.conect_utils.TakeConnection;
 
 import javax.annotation.processing.Generated;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class BuyerDao {
@@ -48,6 +50,36 @@ public class BuyerDao {
             FROM buyer
             WHERE user_name = ?
             """;
+
+    private static final String FIND_ALL = """
+            SELECT id, user_name, address, password
+            FROM buyer
+            """;
+
+    public List<Buyer> findAll() {
+        try (Connection connection = TakeConnection.connection;
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Buyer> buyers = new ArrayList<>();
+
+
+            while (resultSet.next()) {
+                Buyer buyer = new Buyer(
+                        resultSet.getInt("id"),
+                        resultSet.getString("user_name"),
+                        resultSet.getString("address"),
+                        resultSet.getString("password")
+                );
+                buyers.add(buyer);
+            }
+
+            return buyers;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public Optional<Buyer> findByName(String user_name) {
         try (Connection connection = TakeConnection.connection;

@@ -6,6 +6,8 @@ import com.artem.training.store.utils.conect_utils.ConnectionManager;
 import com.artem.training.store.utils.conect_utils.TakeConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class OrderDao {
@@ -15,6 +17,11 @@ public class OrderDao {
     private OrderDao() {
 
     }
+
+    private static final String FIND_ALL = """
+            SELECT id, id, id_product, id_buyer, num_products, status
+            FROM orders
+            """;
 
     private static final String DELETE_SQL = """
             DELETE FROM orders
@@ -32,13 +39,14 @@ public class OrderDao {
             SET id_product = ?,
                 id_buyer = ?,
                 num_products = ?
+                status = ?
      
             WHERE id = ?
             
             """;
 
     private static final String FIND_BY_ID_SQL = """
-            SELECT id, id, id_product, id_buyer, num_products
+            SELECT id, id, id_product, id_buyer, num_products, status
             FROM orders
             WHERE id = ?
             """;
@@ -46,6 +54,31 @@ public class OrderDao {
 
     public static OrderDao getInstance() {
         return INSTANCE;
+    }
+
+    public List<Order> findAll() {
+        try (Connection connection = ConnectionManager.open();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
+
+            List<Order> orders = new ArrayList<>();
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Order order = new Order(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("id_buyer"),
+                        resultSet.getInt("id_product"),
+                        resultSet.getInt("num_products"),
+                        resultSet.getString("status")
+                );
+                orders.add(order);
+            }
+
+            return orders;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -64,7 +97,8 @@ public class OrderDao {
                         resultSet.getInt("id"),
                         resultSet.getInt("id_product"),
                         resultSet.getInt("id_buyer"),
-                        resultSet.getInt("num_products")
+                        resultSet.getInt("num_products"),
+                        resultSet.getString("status")
                 );
             }
 
@@ -82,6 +116,7 @@ public class OrderDao {
             preparedStatement.setInt(2, order.getBuyerId());
             preparedStatement.setInt(3, order.getQuantity());
             preparedStatement.setLong(4, order.getId());
+            preparedStatement.setString(5, order.getStatus());
 
             preparedStatement.executeUpdate();
 

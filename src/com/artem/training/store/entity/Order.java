@@ -6,12 +6,14 @@ public class Order {
     private int buyerId;
     private int productId;
     private int quantity;
+    private String status;
 
-    public Order(int id, int buyerId, int productId, int quantity) {
+    public Order(int id, int buyerId, int productId, int quantity, String status) {
         this.id = id;
         this.buyerId = buyerId;
         this.productId = productId;
         this.quantity = quantity;
+        this.status = status;
     }
 
     public Order() {
@@ -50,6 +52,14 @@ public class Order {
         this.quantity = quantity;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -57,6 +67,7 @@ public class Order {
                ", buyerId=" + buyerId +
                ", productId=" + productId +
                ", quantity=" + quantity +
+                ", status='" + status +
                '}';
     }
 }

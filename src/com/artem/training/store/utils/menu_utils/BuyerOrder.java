@@ -39,7 +39,7 @@ public class BuyerOrder {
                 offset -= limit;
             }else if (input == 9) {
                 offset += limit;
-            } else if (input > 0 && input < limit) {
+            } else if (input > 0 && input <= limit) {
                 int idProduct = offset + input;
                 AddOrder.makeOrder(idProduct, buyer);
             }

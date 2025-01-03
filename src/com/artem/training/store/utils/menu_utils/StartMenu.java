@@ -3,6 +3,8 @@ package com.artem.training.store.utils.menu_utils;
 import com.artem.training.store.entity.Buyer;
 import com.artem.training.store.utils.db_utils.AddBuyer;
 import com.artem.training.store.utils.db_utils.AddProduct;
+import com.artem.training.store.utils.db_utils.BuyerProductStatus;
+import com.artem.training.store.utils.db_utils.ChangeProductStatus;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -86,6 +88,13 @@ public final class StartMenu {
         if (entryOption == 1){
             AddProduct.productToStore();
             entryAsManager();
+        }else if (entryOption == 2){
+            ChangeProductStatus.changeStatus();
+        }else if (entryOption == 3){
+            startMenu();
+        }else {
+            System.out.println("Такого варианта нет");
+            entryAsManager();
         }
     }
 
@@ -100,9 +109,9 @@ public final class StartMenu {
         int entryOption = scanner.nextInt();
 
         if (entryOption == 1){
-            System.out.println("В разработке");
+            BuyerProductStatus.productToReady(buyer);
         }else if (entryOption == 2){
-            System.out.println("В разработке");
+            BuyerProductStatus.productToProcessing(buyer);
         }else if (entryOption == 3){
             BuyerOrder.makeOrder(buyer);
         }else if (entryOption == 4){
