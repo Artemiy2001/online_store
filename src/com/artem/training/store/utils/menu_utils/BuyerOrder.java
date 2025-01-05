@@ -3,10 +3,10 @@ package com.artem.training.store.utils.menu_utils;
 import com.artem.training.store.dao.ProductDao;
 import com.artem.training.store.entity.Buyer;
 import com.artem.training.store.entity.Product;
+import com.artem.training.store.utils.check_utils.CheckInput;
 import com.artem.training.store.utils.db_utils.AddOrder;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class BuyerOrder {
 
@@ -19,10 +19,11 @@ public class BuyerOrder {
         int total = productDao.getCountProduct();
 
         while (true) {
-            
-            displayListProduct(productDao, limit, offset);
+
+            List<Product> productList = displayListProduct(productDao, limit, offset);
 
             System.out.println();
+
 
             if (offset > 0) {
                 System.out.println("8) Назад");
@@ -32,29 +33,35 @@ public class BuyerOrder {
                 System.out.println("9) Далее");
             }
 
+            System.out.println("0) Выход");
+
             System.out.print("Выберите действие: ");
-            Scanner scanner = new Scanner(System.in);
-            int input = scanner.nextInt();
+
+            int input = CheckInput.IntInput();
             if (input == 8) {
                 offset -= limit;
-            }else if (input == 9) {
+            } else if (input == 9) {
                 offset += limit;
+            } else if (input == 0) {
+                break;
             } else if (input > 0 && input <= limit) {
-                int idProduct = offset + input;
+                int idProduct = productList.get(input - 1).getId();
                 AddOrder.makeOrder(idProduct, buyer);
             }
+
 
         }
     }
 
-    private static void displayListProduct(ProductDao productDao, int limit, int offset) {
-        List<Product> allProducts = productDao.getAllProducts(limit, offset);
+    private static List<Product> displayListProduct(ProductDao productDao, int limit, int offset) {
+        List<Product> ListProducts = productDao.getAllProducts(limit, offset);
 
         System.out.println();
-        for (int i = 0; i < allProducts.size(); i++) {
+        for (int i = 0; i < ListProducts.size(); i++) {
             System.out.println((i + 1) + ") " +
-                               allProducts.get(i).getName() + " - " +
-                               allProducts.get(i).getPrice() + " руб");
+                               ListProducts.get(i).getName() + " - " +
+                               ListProducts.get(i).getPrice() + " руб");
         }
+        return ListProducts;
     }
 }

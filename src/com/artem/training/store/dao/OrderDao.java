@@ -1,9 +1,7 @@
 package com.artem.training.store.dao;
 
-import com.artem.training.store.entity.Buyer;
 import com.artem.training.store.entity.Order;
 import com.artem.training.store.utils.conect_utils.ConnectionManager;
-import com.artem.training.store.utils.conect_utils.TakeConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -38,7 +36,7 @@ public class OrderDao {
             UPDATE orders
             SET id_product = ?,
                 id_buyer = ?,
-                num_products = ?
+                num_products = ?,
                 status = ?
      
             WHERE id = ?
@@ -115,8 +113,8 @@ public class OrderDao {
             preparedStatement.setInt(1, order.getProductId());
             preparedStatement.setInt(2, order.getBuyerId());
             preparedStatement.setInt(3, order.getQuantity());
-            preparedStatement.setLong(4, order.getId());
-            preparedStatement.setString(5, order.getStatus());
+            preparedStatement.setString(4, order.getStatus());
+            preparedStatement.setLong(5, order.getId());
 
             preparedStatement.executeUpdate();
 

@@ -2,9 +2,7 @@ package com.artem.training.store.dao;
 
 import com.artem.training.store.entity.Buyer;
 import com.artem.training.store.utils.conect_utils.ConnectionManager;
-import com.artem.training.store.utils.conect_utils.TakeConnection;
 
-import javax.annotation.processing.Generated;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +55,7 @@ public class BuyerDao {
             """;
 
     public List<Buyer> findAll() {
-        try (Connection connection = TakeConnection.connection;
+        try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -82,7 +80,7 @@ public class BuyerDao {
     }
 
     public Optional<Buyer> findByName(String user_name) {
-        try (Connection connection = TakeConnection.connection;
+        try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_NAME_SQL)) {
 
             preparedStatement.setString(1, user_name);
@@ -107,7 +105,7 @@ public class BuyerDao {
     }
 
     public Optional<Buyer> findById(int id) {
-        try (Connection connection = TakeConnection.connection;
+        try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
 
             preparedStatement.setInt(1, id);
@@ -133,7 +131,7 @@ public class BuyerDao {
 
     public void updateBuyer(Buyer buyer) {
 
-        try (Connection connection = TakeConnection.connection;
+        try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
             preparedStatement.setString(1, buyer.getName());
             preparedStatement.setString(2, buyer.getAddress());
@@ -150,7 +148,7 @@ public class BuyerDao {
 
     public boolean deleteBuyer(int id) {
 
-        try (Connection connection = TakeConnection.connection;
+        try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)) {
 
             preparedStatement.setInt(1, id);

@@ -2,7 +2,6 @@ package com.artem.training.store.dao;
 
 import com.artem.training.store.entity.Product;
 import com.artem.training.store.utils.conect_utils.ConnectionManager;
-import com.artem.training.store.utils.conect_utils.TakeConnection;
 
 import java.sql.*;
 import java.util.ArrayList;

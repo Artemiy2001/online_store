@@ -10,7 +10,7 @@ import java.util.List;
 public class BuyerProductStatus {
 
     public static void productToReady(Buyer buyer) {
-        statusProduct(buyer, "ready");
+        statusProduct(buyer, "confirmed");
     }
 
     public static void productToProcessing(Buyer buyer) {

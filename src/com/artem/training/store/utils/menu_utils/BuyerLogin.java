@@ -2,6 +2,7 @@ package com.artem.training.store.utils.menu_utils;
 
 import com.artem.training.store.entity.Buyer;
 import com.artem.training.store.utils.check_utils.CheckBuyerLogin;
+import com.artem.training.store.utils.check_utils.CheckInput;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -13,14 +14,12 @@ public class BuyerLogin {
 
     public static Optional<Buyer> buyerLog(){
 
-        Scanner scanner = new Scanner(System.in);
-
         System.out.println();
         System.out.print("Введите ваш логин: ");
-        user_name = scanner.nextLine();
+        user_name = CheckInput.StringInput();
 
         System.out.print("Введите ваш пароль: ");
-        password = scanner.nextLine();
+        password = CheckInput.StringInput();
 
         return CheckBuyerLogin.checkLogin(user_name, password);
 
